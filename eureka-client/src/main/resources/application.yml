@@ -1,0 +1,62 @@
+server:
+  port: 9001
+spring:
+  profiles: usa
+  application:
+    name: eureka-consumer
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:7001/eureka/
+    prefer-same-zone-eureka: true
+  instance:
+    lease-expiration-duration-in-seconds: 8
+    lease-renewal-interval-in-seconds: 2
+    metadataMap:
+      zone: usa-east-zone
+  preferable:
+    port: 8001
+    
+---
+server:
+  port: 9002
+spring:
+  profiles: ldn
+  application:
+    name: eureka-consumer
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:7002/eureka/
+    prefer-same-zone-eureka: true
+  instance:
+    lease-expiration-duration-in-seconds: 8
+    lease-renewal-interval-in-seconds: 2
+    metadataMap:
+      zone: ldn-zone
+---
+server:
+  port: 9003
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*" 
+spring:
+  profiles: sgr
+  application:
+    name: eureka-consumer
+  boot:
+    admin:
+      client:
+        url: http://localhost:7003/admin
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:7003/eureka/
+    prefer-same-zone-eureka: true  
+  instance:
+    lease-expiration-duration-in-seconds: 8
+    lease-renewal-interval-in-seconds: 2
+    metadataMap:
+      zone: sgr-zone
